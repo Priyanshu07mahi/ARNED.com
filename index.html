@@ -371,7 +371,7 @@
                 <span class="letter letter-D" style="opacity: 1;">D</span>
             </h1>
             <p class="text-lg">Unleashing Creativity, Building Brands.</p>
-            <a href="https://wa.me/918018686707" target="_blank"
+            <a href="https://wa.me/918018686707?text=Hi,%20I%20need%20help" target="_blank"
                 class="mt-6 inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Contact
                 Us</a>
         </div>
@@ -455,8 +455,7 @@
             let logoText = "ArNed Creation";
             let logo = document.getElementById("logo");
             logoText.split("").forEach((char, index) => {
-                let span = document.createElement("span");
-                span.textContent = char;
+                let span = document.createElement("span");span.textContent = char;
                 span.style.animationDelay = `${index * 0.1}s`;
                 logo.appendChild(span);
             });

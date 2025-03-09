@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArNed Creation Landing Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: radial-gradient(circle, #00122e, #000814);
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            transition: background 0.3s, color 0.3s;
+        }
+        
+        body.light-mode {
+            background: radial-gradient(circle, #e0e0e0, #f0f0f0);
+            color: #333;
+        }
+        
+        .cursor-circle {
+            width: 80px;
+            height: 80px;
+            position: absolute;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            background: radial-gradient(circle, rgba(255, 0, 0, 0.5), rgba(0, 0, 255, 0.5));
+            mix-blend-mode: screen;
+            transition: transform 0.1s ease-out;
+        }
+        
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('images/grid.png') repeat;
+            animation: animateGrid 10s linear infinite;
+            z-index: -1;
+            filter: opacity(0);
+            transition: clip-path 0.5s ease-in-out, filter 0.5s ease-in-out;
+        }
+        
+        @keyframes animateGrid {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 100px 100px;
+            }
+        }
+        
+        .logo span {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: white;
+            opacity: 0;
+            display: inline-block;
+            position: relative;
+            transform: translateY(-100px) rotateX(90deg) scale(0.5);
+            filter: blur(15px);
+            animation: complexFadeIn 1.2s forwards;
+        }
+        
+        body.light-mode .logo span {
+            color: #333;
+        }
+        
+        @keyframes complexFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-100px) rotateX(90deg) scale(0.5);
+                filter: blur(15px);
+            }
+            50% {
+                opacity: 0.5;
+                transform: translateY(20px) rotateX(30deg) scale(1.2);
+                filter: blur(5px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) rotateX(0deg) scale(1);
+                filter: blur(0);
+            }
+        }
+        
+        .nav-link {
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .nav-link:hover {
+            transform: scale(1.1);
+            color: #00aaff;
+        }
+        
+        body.light-mode .nav-link:hover {
+            color: #0077cc;
+        }
+        
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: url('images/space-bg.jpg') no-repeat center center/cover;
+            animation: fadeInZoom 2s ease-in-out;
+        }
+        
+        @keyframes fadeInZoom {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .hero h1 {
+            font-size: 5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.8rem;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .hero svg {
+            width: 100%;
+            height: auto;
+        }
+        
+        .hero path {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: draw 3s linear forwards, fill 1s linear forwards 3s;
+            stroke: white;
+            stroke-width: 2;
+            fill: transparent;
+        }
+        
+        body.light-mode .hero path {
+            stroke: #333;
+        }
+        
+        @keyframes draw {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+        
+        @keyframes fill {
+            to {
+                fill: url(#textGradient);
+                stroke: transparent;
+            }
+        }
+        
+        .mode-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            font-size: 2rem;
+            z-index: 100;
+        }
+        
+        body.light-mode .mode-toggle {
+            color: #333;
+        }
+        
+        body.light-mode .bg-gray-800 {
+            background-color: #d1d5db;
+            color: #333;
+        }
+        
+        body.light-mode footer {
+            background-color: #4b5563;
+        }
+        
+        .letter {
+            display: inline-block;
+            stroke: white;
+            stroke-width: 2;
+            fill: transparent;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .letter-A,
+        .letter-D {
+            opacity: 0;
+            transform: translateX(100vw);
+            animation: slideInHorizontal 2s forwards;
+        }
+        
+        .letter-D {
+            animation-delay: 0.4s;
+            transform: translateX(-100vw);
+        }
+        
+        .letter-R,
+        .letter-E {
+            opacity: 0;
+            transform: translateY(-100vh);
+            animation: slideInVertical 2s forwards;
+        }
+        
+        .letter-E {
+            animation-delay: 0.4s;
+            transform: translateY(100vh);
+        }
+        
+        .letter-N {
+            opacity: 0;
+            animation: fadeIn 3s forwards;
+            animation-delay: 0.8s;
+        }
+        
+        @keyframes slideInHorizontal {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInVertical {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fillLetters {
+            to {
+                fill: url(#textGradient);
+                stroke: transparent;
+            }
+        }
+        
+        .line-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .line-animation {
+            stroke: white;
+            stroke-width: 2;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: lineCut 2s forwards;
+        }
+        
+        @keyframes lineCut {
+            0% {
+                stroke-dashoffset: 1000;
+                transform: translateX(-100%);
+            }
+            50% {
+                stroke-dashoffset: 0;
+                transform: translateX(0);
+            }
+            100% {
+                stroke-dashoffset: 0;
+                transform: translateX(0);
+            }
+        }
+        
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-left: 10px solid white;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="grid-background" id="grid-background"></div>
+    <nav class="flex justify-between items-center p-6 relative">
+        <div class="text-2xl font-bold" id="logo"></div>
+        <div class="mode-toggle" id="mode-toggle">&#9788;</div>
+    </nav>
+
+    <section class="hero" id="hero" data-aos="fade-up">
+        <div id="hero-content">
+            <h1 id="arned-title" style="position: relative;">
+                <span class="letter letter-A" style="opacity: 1;">A</span>
+                <span class="letter letter-R">R</span>
+                <span class="letter letter-N">N</span>
+                <span class="letter letter-E">E</span>
+                <span class="letter letter-D" style="opacity: 1;">D</span>
+            </h1>
+            <p class="text-lg">Unleashing Creativity, Building Brands.</p>
+            <a href="#contact" class="mt-6 inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Contact
+                Us</a>
+        </div>
+    </section>
+
+    <section id="about" class="py-20 px-6 md:px-20">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl font-bold" id="about-heading" data-aos="fade-right">About ArNed Creation</h2>
+            <p class="text-lg leading-relaxed" data-aos="fade-left">ArNed Creation is dedicated to unlocking creativity and innovation. Our mission is to craft exceptional digital experiences and brand identities that resonate with your audience.</p>
+        </div>
+    </section>
+
+    <section id="services" class="py-20 px-6 md:px-20">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-center" data-aos="fade-up">Our Services</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <a href="creative-design.html" class="bg-gray-800 p-6 rounded-lg text-center transition duration-300 transform hover:scale-110 hover:rotate-3" data-aos="flip-left">
+                    <h3 class="text-2xl font-semibold">Creative Design</h3>
+                    <p>Innovative and unique designs that captivate.</p>
+                </a>
+                <a href="digital-art.html" class="bg-gray-800 p-6 rounded-lg text-center transition duration-300 transform hover:scale-110 hover:-rotate-3" data-aos="flip-left" data-aos-delay="200">
+                    <h3 class="text-2xl font-semibold">Digital Art</h3>
+                    <p>Transforming ideas into breathtaking digital masterpieces.</p>
+                </a>
+                <a href="brand-identity.html" class="bg-gray-800 p-6 rounded-lg text-center transition duration-300 transform hover:scale-110 hover:skew-x-6" data-aos="flip-left" data-aos-delay="400">
+                    <h3 class="text-2xl font-semibold">Brand Identity</h3>
+                    <p>Creating a lasting impact with a strong visual presence.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-6 bg-gray-900 text-center">
+        <p>&copy; 2025 ArNed Creation.</p>
+    </footer>
+
+    <div class="cursor-circle" id="cursor-circle"></div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+        document.addEventListener("DOMContentLoaded", function() {
+            let logoText = "ArNed Creation";
+            let logo = document.getElementById("logo");
+            logoText.split("").forEach((char, index) => {
+                let span = document.createElement("span");
+                span.textContent = char;
+                span.style.animationDelay = `${index * 0.1}s`;
+                logo.appendChild(span);
+            });
+
+            const cursorCircle = document.getElementById('cursor-circle');
+            const gridBackground = document.getElementById('grid-background');
+            const bodyWidth = document.body.clientWidth;
+            const aboutHeading = document.getElementById('about-heading');
+
+            function isAboutHeadingInViewport() {
+                const rect = aboutHeading.getBoundingClientRect();
+                return rect.top >= 0;
+            }
+
+            function updateCursorAndGrid(e) {
+                if (isAboutHeadingInViewport()) {
+                    cursorCircle.style.display = 'block';
+                    cursorCircle.style.left = `${e.clientX}px`;
+                    cursorCircle.style.top = `${e.clientY + window.scrollY}px`;
+                    const percentage = (e.clientX / bodyWidth) * 100;
+                    cursorCircle.style.background = `linear-gradient(to right, rgba(255, 0, 0, ${(100 - percentage) / 100}), rgba(0, 0, 255, ${percentage / 100}))`;
+
+                    gridBackground.style.clipPath = `circle(80px at ${e.clientX}px ${e.clientY + window.scrollY}px)`;
+                    gridBackground.style.filter = "opacity(0.3)";
+                } else {
+                    cursorCircle.style.display = 'none';
+                    gridBackground.style.clipPath = `circle(0 at 0 0)`;
+                    gridBackground.style.filter = "opacity(0)";
+                }
+            }
+
+            document.addEventListener('mousemove', (e) => {
+                updateCursorAndGrid(e);
+            });
+
+            document.addEventListener('scroll', (e) => {
+                updateCursorAndGrid({
+                    clientX: cursorCircle.offsetLeft,
+                    clientY: cursorCircle.offsetTop - window.scrollY
+                });
+            });
+
+            document.addEventListener('mouseleave', () => {
+                gridBackground.style.clipPath = `circle(0 at 0 0)`;
+                gridBackground.style.filter = "opacity(0)";
+                gridBackground.style.transition = "clip-path 0.5s ease-in-out, filter 0.5s ease-in-out";
+            });
+
+            document.addEventListener('mouseenter', () => {
+                gridBackground.style.transition = "clip-path 0s, filter 0s";
+            });
+
+            updateCursorAndGrid({
+                clientX: cursorCircle.offsetLeft,
+                clientY: cursorCircle.offsetTop - window.scrollY
+            });
+
+            const modeToggle = document.getElementById('mode-toggle');
+            modeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('light-mode');
+                if (document.body.classList.contains('light-mode')) {
+                    modeToggle.innerHTML = '&#9789;';
+                    modeToggle.style.color = '#333';
+                } else {
+                    modeToggle.innerHTML = '&#9788;';
+                    modeToggle.style.color = 'white';
+                }
+            });
+
+            if (document.body.classList.contains('light-mode')) {
+                modeToggle.innerHTML = '&#9789;';
+                modeToggle.style.color = '#333';
+            } else {
+                modeToggle.innerHTML = '&#9788;';
+                modeToggle.style.color = 'white';
+            }
+
+            const letters = document.querySelectorAll('.letter');
+            let fillDelay = 3000;
+            setTimeout(() => {
+                letters.forEach(letter => {
+                    letter.style.animation = 'fillLetters 1sforwards';
+                    letter.style.fill = 'url(#textGradient)';
+                    letter.style.stroke = 'transparent';
+                    letter.style.fontFamily = 'Montserrat', sans - serif;
+                });
+
+                const arnedTitle = document.getElementById('arned-title');
+                const lineContainer = document.createElement('div');
+                lineContainer.classList.add('line-container');
+                arnedTitle.appendChild(lineContainer);
+
+                const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                svg.setAttribute('width', '100%');
+                svg.setAttribute('height', '100%');
+
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', '0%');
+                line.setAttribute('y1', '50%');
+                line.setAttribute('x2', '0%');
+                line.setAttribute('y2', '50%');
+                line.classList.add('line-animation');
+
+                svg.appendChild(line);
+                lineContainer.appendChild(svg);
+
+                const arrow = document.createElement('div');
+                arrow.classList.add('arrow');
+                lineContainer.appendChild(arrow);
+
+                const aLetter = document.querySelector('.letter-A');
+                const eLetter = document.querySelector('.letter-E');
+
+                const aLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                aLine.setAttribute('x1', '40%');
+                aLine.setAttribute('y1', '60%');
+                aLine.setAttribute('x2', '60%');
+                aLine.setAttribute('y2', '60%');
+                aLine.setAttribute('stroke', 'white');
+                aLine.setAttribute('stroke-width', '2');
+                aLine.setAttribute('style', 'display: none;');
+
+                const eLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                eLine.setAttribute('x1', '20%');
+                eLine.setAttribute('y1', '50%');
+                eLine.setAttribute('x2', '80%');
+                eLine.setAttribute('y2', '50%');
+                eLine.setAttribute('stroke', 'white');
+                eLine.setAttribute('stroke-width', '2');
+                eLine.setAttribute('style', 'display: none;');
+
+                aLetter.appendChild(aLine);
+                eLetter.appendChild(eLine);
+
+                setTimeout(() => {
+                    aLine.style.display = 'block';
+                    eLine.style.display = 'block';
+                    arrow.style.opacity = 1;
+                    line.setAttribute('x2', '100%');
+                    arrow.style.left = '100%';
+                    arrow.style.transition = 'left 2s forwards, opacity 0.5s ease-in-out';
+                }, 2000);
+
+                setTimeout(() => {
+                    line.setAttribute('x2', '100%');
+                }, 0);
+
+                setTimeout(() => {
+                    aLetter.style.fill = 'url(#textGradient)';
+                    aLetter.style.stroke = 'transparent';
+                }, 4000);
+
+            }, fillDelay);
+
+            const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+            const gradient = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
+            gradient.id = "textGradient";
+            gradient.setAttribute('x1', '0%');
+            gradient.setAttribute('y1', '0%');
+            gradient.setAttribute('x2', '100%');
+            gradient.setAttribute('y2', '0%');
+
+            const stop1 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+            stop1.setAttribute('offset', '0%');
+            stop1.setAttribute('style', 'stop-color:#00c6ff;stop-opacity:1');
+            gradient.appendChild(stop1);
+
+            const stop2 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+            stop2.setAttribute('offset', '100%');
+            stop2.setAttribute('style', 'stop-color:#0072ff;stop-opacity:1');
+            gradient.appendChild(stop2);
+
+            defs.appendChild(gradient);
+            document.querySelector('h1').appendChild(defs);
+        });
+    </script>
+</body>
+
+</html>

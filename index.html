@@ -175,10 +175,47 @@
             cursor: pointer;
             font-size: 2rem;
             z-index: 100;
+            transition: color 0.3s;
         }
 
         body.light-mode .mode-toggle {
             color: #333;
+        }
+
+        .mode-toggle.animating {
+            animation: bulbAnimation 0.8s ease-in-out;
+        }
+
+        @keyframes bulbAnimation {
+            0% {
+                transform: rotate(0deg) scale(1);
+                text-shadow: none;
+                opacity: 1;
+            }
+
+            20% {
+                transform: rotate(360deg) scale(1.2);
+                text-shadow: 0 0 10px white;
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: rotate(360deg) scale(0.9);
+                text-shadow: 0 0 5px white;
+                opacity: 1;
+            }
+
+            80% {
+                transform: rotate(0deg) scale(1.1);
+                text-shadow: none;
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: rotate(0deg) scale(1);
+                text-shadow: none;
+                opacity: 1;
+            }
         }
 
         body.light-mode .bg-gray-800 {
@@ -268,7 +305,7 @@
             stroke: white;
             stroke-width: 2;
             stroke-dasharray: 1000;
-            strokedashoffset: 1000;
+            stroke-dashoffset: 1000;
             animation: lineCut 2s forwards;
         }
 
@@ -347,6 +384,60 @@
             transform: scale(1.05);
         }
 
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            right: 0;
+            top: 100%;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        #hero {
+            padding-bottom: 150px;
+        }
+
+        .logo-container {
+            position: relative;
+        }
+
+        .logo-dark {
+            display: block;
+        }
+
+        .logo-light {
+            display: none;
+        }
+
+        body.light-mode .logo-dark {
+            display: none;
+        }
+
+        body.light-mode .logo-light {
+            display: block;
+        }
     </style>
 </head>
 
@@ -354,7 +445,12 @@
     <div class="grid-background" id="grid-background"></div>
     <nav class="flex justify-between items-center p-6 relative">
         <div class="text-2xl font-bold" id="logo">
-            <img src="logo_ArNed.png" alt="ArNed Creation Logo" style="max-height: 60px;">
+            <div class="logo-container">
+                <img src="logo_ArNed_dark.png" alt="ArNed Creation Logo (Dark)" class="logo logo-dark"
+                    style="max-height: 60px;">
+                <img src="logo_ArNed_light.png" alt="ArNed Creation Logo (Light)" class="logo logo-light"
+                    style="max-height: 60px;">
+            </div>
         </div>
         <div class="mode-toggle" id="mode-toggle">&#9788;</div>
     </nav>
@@ -369,18 +465,32 @@
                 <span class="letter letter-D" style="opacity: 1;">D</span>
             </h1>
             <p class="text-lg">Unleashing Creativity, Building Brands.</p>
-            <a href="https://wa.me/918018686707?text=Hi,%20I%20need%20help" target="_blank"
-                class="mt-6 inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Contact
-                Us</a>
+            <div class="flex justify-center mt-6">
+                <a href="https://wa.me/918018686707?text=Hi,%20I%20need%20help" target="_blank"
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4">Contact Us</a>
+                <div class="dropdown">
+                    <button class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Download
+                        Brochure</button>
+                    <div class="dropdown-content">
+                        <a href="brochures/content-creation.pdf" download>Content Creation</a>
+                        <a href="brochures/ads-making.pdf" download>Ads Making</a>
+                        <a href="brochures/graphic-designing.pdf" download>Graphic Designing</a>
+                        <a href="brochures/logo-designing.pdf" download>Logo Designing</a>
+                        <a href="brochures/videography.pdf" download>Videography</a>
+                        <a href="brochures/web-development.pdf" download>Web Development</a>
+                        <a href="brochures/full-brochure.pdf" download>Full Brochure</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <section id="about" class="py-20 px-6 md:px-20">
         <div class="max-w-4xl mx-auto text-center">
             <h2 class="text-4xl font-bold" id="about-heading" data-aos="fade-right">About ArNed Creation</h2>
-            <p class="text-lg leading-relaxed" data-aos="fade-left">ArNed Creation is dedicated to unlocking creativity and
-                innovation. Our mission is to craft exceptional digital experiences and brand identities that resonate
-                with your audience.</p>
+            <p class="text-lg leading-relaxed" data-aos="fade-left">ArNed Creation is dedicated to unlocking creativity
+                and innovation. Our mission is to craft exceptional digital experiences and brand identities that
+                resonate with your audience.</p>
         </div>
     </section>
 
@@ -420,211 +530,119 @@
                     <a href="brochures/videography.pdf" download
                         class="block bg-gray-800 p-6 rounded-lg text-center transition duration-300 transform hover:scale-105">
                         <h3 class="text-2xl font-semibold mb-4">Videography</h3>
-                        <p>Capturing moments and telling stories through video.</p>
+                        <p>Capturing moments and telling stories through high-quality video.</p>
                     </a>
                 </div>
                 <div class="service-tab">
-                    <div class="block bg-gray-800 p-6 rounded-lg text-center">
-                        <h3 class="text-2xl font-semibold mb-4">Web Designing <span class="blinking"
-                                style="color:red; font-size: 1.2rem;">(Coming Soon)</span></h3>
-                        <p>Crafting intuitive and visually appealing websites.</p>
-                    </div>
+                    <a href="brochures/web-development.pdf" download
+                        class="block bg-gray-800 p-6 rounded-lg text-center transition duration-300 transform hover:scale-105">
+                        <h3 class="text-2xl font-semibold mb-4">Web Development</h3>
+                        <p>Building responsive and user-friendly websites.</p>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="py-6 bg-gray-900 text-center">
-        <p>&copy; 2025 ArNed Creation.</p>
+    <footer class="bg-gray-800 py-8 text-center">
+        <p>&copy; 2024 ArNed Creation. All rights reserved.</p>
     </footer>
 
-    <div class="cursor-circle" id="cursor-circle"></div>
-
     <div class="social-icons">
-        <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.linkedin.com/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-        <a href="https://twitter.com/" target="_blank"><i class="fab fa-x-twitter"></i></a>
+        <a href="https://www.instagram.com/arnedcreation/" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.facebook.com/arnedcreation/" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.linkedin.com/company/arnedcreation/" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://wa.me/918018686707?text=Hi,%20I%20need%20help" target="_blank"><i class="fab fa-whatsapp"></i></a>
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init();
-        document.addEventListener("DOMContentLoaded", function () {
-            let logo = document.getElementById("logo");
-            logo.style.opacity = 1;
-            logo.style.transform = 'translateY(0) scale(1)';
-            logo.style.filter = 'blur(0)';
+        AOS.init({
+            duration: 1200,
+        });
 
-            const cursorCircle = document.getElementById('cursor-circle');
-            const gridBackground = document.getElementById('grid-background');
-            const bodyWidth = document.body.clientWidth;
-            const aboutHeading = document.getElementById('about-heading');
+        const modeToggle = document.getElementById('mode-toggle');
+        const body = document.body;
+        const gridBackground = document.getElementById('grid-background');
+        const logo = document.getElementById('logo');
+        let mouseX = 0;
+        let mouseY = 0;
 
-            function isAboutHeadingInViewport() {
-                const rect = aboutHeading.getBoundingClientRect();
-                return rect.top >= 0;
-            }
+        modeToggle.addEventListener('click', () => {
+            modeToggle.classList.add('animating');
 
-            function updateCursorAndGrid(e) {
-                if (isAboutHeadingInViewport()) {
-                    cursorCircle.style.display = 'block';
-                    cursorCircle.style.left = `${e.clientX}px`;
-                    cursorCircle.style.top = `${e.clientY + window.scrollY}px`;
-                    const percentage = (e.clientX / bodyWidth) * 100;
-                    cursorCircle.style.background = `linear-gradient(to right, rgba(255, 0, 0, ${(100 - percentage) / 100}), rgba(0, 0, 255, ${percentage / 100}))`;
-
-                    gridBackground.style.clipPath = `circle(80px at ${e.clientX}px ${e.clientY + window.scrollY}px)`;
-                    gridBackground.style.filter = "opacity(0.3)";
-                } else {
-                    cursorCircle.style.display = 'none';
-                    gridBackground.style.clipPath = `circle(0 at 0 0)`;
-                    gridBackground.style.filter = "opacity(0)";
-                }
-            }
-
-            document.addEventListener('mousemove', (e) => {
-                updateCursorAndGrid(e);
-            });
-
-            document.addEventListener('scroll', (e) => {
-                updateCursorAndGrid({
-                    clientX: cursorCircle.offsetLeft,
-                    clientY: cursorCircle.offsetTop - window.scrollY
-                });
-            });
-
-            document.addEventListener('mouseleave', () => {
-                gridBackground.style.clipPath = `circle(0 at 0 0)`;
-                gridBackground.style.filter = "opacity(0)";
-                gridBackground.style.transition = "clip-path 0.5s ease-in-out, filter 0.5s ease-in-out";
-            });
-
-            document.addEventListener('mouseenter', () => {
-                gridBackground.style.transition = "clip-path 0s, filter 0s";
-            });
-
-            updateCursorAndGrid({
-                clientX: cursorCircle.offsetLeft,
-                clientY: cursorCircle.offsetTop - window.scrollY
-            });
-
-            const modeToggle = document.getElementById('mode-toggle');
-            modeToggle.addEventListener('click', () => {
-                document.body.classList.toggle('light-mode');
-                if (document.body.classList.contains('light-mode')) {
-                    modeToggle.innerHTML = '&#9789;';
-                    modeToggle.style.color = '#333';
-                } else {
-                    modeToggle.innerHTML = '&#9788;';
-                    modeToggle.style.color = 'white';
-                }
-            });
-
-            if (document.body.classList.contains('light-mode')) {
+            body.classList.toggle('light-mode');
+            if (body.classList.contains('light-mode')) {
                 modeToggle.innerHTML = '&#9789;';
-                modeToggle.style.color = '#333';
+                gridBackground.style.filter = 'opacity(0.3)';
             } else {
                 modeToggle.innerHTML = '&#9788;';
-                modeToggle.style.color = 'white';
+                gridBackground.style.filter = 'opacity(0)';
             }
 
-            const letters = document.querySelectorAll('.letter');
-            let fillDelay = 3000;
             setTimeout(() => {
-                letters.forEach(letter => {
-                    letter.style.animation = 'fillLetters 1sforwards';
-                    letter.style.fill = 'url(#textGradient)';
-                    letter.style.stroke = 'transparent';
-                    letter.style.fontFamily = 'Montserrat', sans - serif;
-                });
+                modeToggle.classList.remove('animating');
+            }, 800);
+        });
 
-                const arnedTitle = document.getElementById('arned-title');
-                const lineContainer = document.createElement('div');
-                lineContainer.classList.add('line-container');
-                arnedTitle.appendChild(lineContainer);
+        const arnedTitle = document.getElementById('arned-title');
+        const letters = arnedTitle.querySelectorAll('.letter');
 
-                const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-                svg.setAttribute('width', '100%');
-                svg.setAttribute('height', '100%');
+        letters.forEach((letter, index) => {
+            if (index === 0 || index === 4) {
+                letter.style.animationDelay = '0s';
+            }
+        });
 
-                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                line.setAttribute('x1', '0%');
-                line.setAttribute('y1', '50%');
-                line.setAttribute('x2', '0%');
-                line.setAttribute('y2', '50%');
-                line.classList.add('line-animation');
+        const heroContent = document.getElementById('hero-content');
 
-                svg.appendChild(line);
-                lineContainer.appendChild(svg);
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            updateCursorCircle();
+        });
 
-                const arrow = document.createElement('div');
-                arrow.classList.add('arrow');
-                lineContainer.appendChild(arrow);
+        window.addEventListener('scroll', () => {
+            updateCursorCircle();
+        });
 
-                const aLetter = document.querySelector('.letter-A');
-                const eLetter = document.querySelector('.letter-E');
+        function updateCursorCircle() {
+            const cursorCircle = document.querySelector('.cursor-circle');
+            if (cursorCircle) {
+                const scrollY = window.scrollY || window.pageYOffset;
+                cursorCircle.style.left = `${mouseX}px`;
+                cursorCircle.style.top = `${mouseY + scrollY}px`;
+                cursorCircle.style.transform = `translate(-50%, -50%)`;
 
-                const aLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                aLine.setAttribute('x1', '40%');
-                aLine.setAttribute('y1', '60%');
-                aLine.setAttribute('x2', '60%');
-                aLine.setAttribute('y2', '60%');
-                aLine.setAttribute('stroke', 'white');
-                aLine.setAttribute('stroke-width', '2');
-                aLine.setAttribute('style', 'display: none;');
+                const servicesSection = document.getElementById('services');
+                const servicesRect = servicesSection.getBoundingClientRect();
 
-                const eLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                eLine.setAttribute('x1', '20%');
-                eLine.setAttribute('y1', '50%');
-                eLine.setAttribute('x2', '80%');
-                eLine.setAttribute('y2', '50%');
-                eLine.setAttribute('stroke', 'white');
-                eLine.setAttribute('stroke-width', '2');
-                eLine.setAttribute('style', 'display: none;');
+                if (servicesRect.top <= window.innerHeight && servicesRect.bottom >= 0) {
+                    cursorCircle.style.display = 'none';
+                } else {
+                    cursorCircle.style.display = 'block';
+                }
+            }
+        }
 
-                aLetter.appendChild(aLine);
-                eLetter.appendChild(eLine);
+        document.addEventListener('DOMContentLoaded', () => {
+            const cursorCircle = document.createElement('div');
+            cursorCircle.classList.add('cursor-circle');
+            document.body.appendChild(cursorCircle);
+        });
 
-                setTimeout(() => {
-                    aLine.style.display = 'block';
-                    eLine.style.display = 'block';
-                    arrow.style.opacity = 1;
-                    line.setAttribute('x2', '100%');
-                    arrow.style.left = '100%';
-                    arrow.style.transition = 'left 2s forwards, opacity 0.5s ease-in-out';
-                }, 2000);
+        const logoElement = document.getElementById('logo');
+        window.addEventListener('load', () => {
+            const logoDark = document.querySelector('.logo-dark');
+            const logoLight = document.querySelector('.logo-light');
 
-                setTimeout(() => {
-                    line.setAttribute('x2', '100%');
-                }, 0);
+            logoDark.style.opacity = '1';
+            logoDark.style.transform = 'translateY(0) scale(1)';
+            logoDark.style.filter = 'blur(0)';
 
-                setTimeout(() => {
-                    aLetter.style.fill = 'url(#textGradient)';
-                    aLetter.style.stroke = 'transparent';
-                }, 4000);
-
-            }, fillDelay);
-
-            const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
-            const gradient = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
-            gradient.id = "textGradient";
-            gradient.setAttribute('x1', '0%');
-            gradient.setAttribute('y1', '0%');
-            gradient.setAttribute('x2', '100%');
-            gradient.setAttribute('y2', '0%');
-
-            const stop1 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
-            stop1.setAttribute('offset', '0%');
-            stop1.setAttribute('style', 'stop-color:#00c6ff;stop-opacity:1');
-            gradient.appendChild(stop1);
-
-            const stop2 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
-            stop2.setAttribute('offset', '100%');
-            stop2.setAttribute('style', 'stop-color:#0072ff;stop-opacity:1');
-            gradient.appendChild(stop2);
-
-            defs.appendChild(gradient);
-            document.querySelector('h1').appendChild(defs);
+            logoLight.style.opacity = '1';
+            logoLight.style.transform = 'translateY(0) scale(1)';
+            logoLight.style.filter = 'blur(0)';
         });
     </script>
 </body>

@@ -60,38 +60,34 @@
             }
         }
 
-        .logo span {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: white;
+        .logo {
             opacity: 0;
-            display: inline-block;
-            position: relative;
-            transform: translateY(-100px) rotateX(90deg) scale(0.5);
+            transform: translateY(-100px) scale(0.5);
             filter: blur(15px);
             animation: complexFadeIn 1.2s forwards;
+            display: inline-block;
         }
 
-        body.light-mode .logo span {
-            color: #333;
+        body.light-mode .logo img {
+            filter: brightness(0.8);
         }
 
         @keyframes complexFadeIn {
             0% {
                 opacity: 0;
-                transform: translateY(-100px) rotateX(90deg) scale(0.5);
+                transform: translateY(-100px) scale(0.5);
                 filter: blur(15px);
             }
 
             50% {
                 opacity: 0.5;
-                transform: translateY(20px) rotateX(30deg) scale(1.2);
+                transform: translateY(20px) scale(1.2);
                 filter: blur(5px);
             }
 
             100% {
                 opacity: 1;
-                transform: translateY(0) rotateX(0deg) scale(1);
+                transform: translateY(0) scale(1);
                 filter: blur(0);
             }
         }
@@ -272,7 +268,7 @@
             stroke: white;
             stroke-width: 2;
             stroke-dasharray: 1000;
-            stroke-dashoffset: 1000;
+            strokedashoffset: 1000;
             animation: lineCut 2s forwards;
         }
 
@@ -357,7 +353,9 @@
 <body>
     <div class="grid-background" id="grid-background"></div>
     <nav class="flex justify-between items-center p-6 relative">
-        <div class="text-2xl font-bold" id="logo"></div>
+        <div class="text-2xl font-bold" id="logo">
+            <img src="logo_ArNed.png" alt="ArNed Creation Logo" style="max-height: 60px;">
+        </div>
         <div class="mode-toggle" id="mode-toggle">&#9788;</div>
     </nav>
 
@@ -452,13 +450,10 @@
     <script>
         AOS.init();
         document.addEventListener("DOMContentLoaded", function () {
-            let logoText = "ArNed Creation";
             let logo = document.getElementById("logo");
-            logoText.split("").forEach((char, index) => {
-                let span = document.createElement("span");span.textContent = char;
-                span.style.animationDelay = `${index * 0.1}s`;
-                logo.appendChild(span);
-            });
+            logo.style.opacity = 1;
+            logo.style.transform = 'translateY(0) scale(1)';
+            logo.style.filter = 'blur(0)';
 
             const cursorCircle = document.getElementById('cursor-circle');
             const gridBackground = document.getElementById('grid-background');
